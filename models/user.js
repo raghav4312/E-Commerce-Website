@@ -14,15 +14,16 @@ let User = new Schema({
   },
   email:{
     type:String,
-    required:true
+    required:true,
+    unique:true
   },
   password:{
     type:String,
     required:true
   },
   mobileno:{
-    type:String,
-    min:1111111111,
+    type:Number,
+    min:1000000000,
     max:9999999999
   },
   address:{
@@ -32,7 +33,26 @@ let User = new Schema({
     type:Boolean,
     required:true,
     default:false
-  }
+  },
+  cart:[{
+    pid:{
+      type:String,
+      required:true
+    },
+    name:{
+      type:String,
+      required:true
+    },
+    quantity:{
+      type:Number,
+      required:true,
+      default:0
+    },
+    price:{
+      type:Number,
+      required:true
+    }
+  }]
 });
 
 var user = mongoose.model('user',User);

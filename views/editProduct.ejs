@@ -1,0 +1,24 @@
+<%include header.ejs%>
+  <div class="container">
+    <div style="max-width: 750px;margin: 50px auto;" class="bg-light p-5">
+      <h2 class="text-center m-4">Edit Product</h2>
+      <form action="/updateProduct" method="post">
+        <input type="text" value="<%=data._id%>" class="form-control" name="pid" readonly>
+        <input type="text" name="name" placeholder="Enter the name od the Product" class="form-control" required value="<%=data.name%>"><br>
+        <input type="text" class="form-control" name="desc" id="" placeholder="Enter the description" required value="<%=data.desc%>"><br>
+        <input type="number" name="quan" id="" class="form-control" min="1" placeholder="Enter the Quantity" required value="<%=data.quantity%>"><br>
+        <input type="number" name="price" id="" min="1" class="form-control" placeholder="Enter the price" required value="<%=data.price%>"><br>
+        <input type="submit" class="form-control btn btn-info" value="Edit Product">
+      </form>
+      
+      <form action="/products" method="GET">
+        <input type="submit" value="Cancel" class="btnCancel form-control btn btn-secondary mt-3">
+      </form>
+    </div>
+  </div>
+
+<%include footer.ejs%>
+  
+</body>
+<script src="../index.js"></script>
+</html>

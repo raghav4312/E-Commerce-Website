@@ -8,10 +8,6 @@ mongoose.connect('mongodb://localhost/data',{
 let Schema = mongoose.Schema;
 
 let Product = new Schema({
-  pid : {
-    type:Number,
-    required:true
-  },
   name:{
     type:String,
     required:true
