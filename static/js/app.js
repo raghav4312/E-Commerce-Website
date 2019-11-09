@@ -5,6 +5,7 @@ let btnCancel = document.getElementById('btnCancel');
 let btnAdd = document.getElementById('btnAdd');
 let btnEdit = document.getElementById('btnEdit');
 
+
 if(btnAdd!=null)
 btnAdd.addEventListener('click',addProduct);
 if(btnCancel!=null)
@@ -116,6 +117,39 @@ function addProduct(e)
         $('#errorAdd').removeClass('d-none').addClass('d-block');
         setTimeout(()=>{
           $('#errorAdd').addClass('d-none').removeClass('d-block');
+        },2000);
+      }
+    }
+  })
+}
+
+function editProduct(e)
+{
+  e.preventDefault();
+  $.ajax({
+    type:'POST',
+    url:'/prod/editProduct',
+    data:{
+      id:editProductForm.id.value,
+      name:editProductForm.name.value,
+      desc:editProductForm.desc.value,
+      quan:editProductForm.quan.value,
+      price:editProductForm.price.value
+    },
+    success:(data,status)=>{
+      if(data.error==null)
+      {
+        $('#successEdit').removeClass('d-none').addClass('d-block');
+        setTimeout(()=>{
+          $('#successEdit').addClass('d-none').removeClass('d-block');
+          window.location.href="/";
+        },2000);
+      }
+      else
+      {
+        $('#errorEdit').removeClass('d-none').addClass('d-block');
+        setTimeout(()=>{
+          $('#errorEdit').addClass('d-none').removeClass('d-block');
         },2000);
       }
     }

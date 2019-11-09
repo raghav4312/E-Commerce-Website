@@ -1,5 +1,11 @@
 <%include header.ejs%>
   <div class="container">
+    <div class="alert alert-success d-none" role="alert" id="successEdit">
+        Product Updated!
+    </div>
+    <div class="alert alert-danger d-none" role="alert" id="errorEdit">
+        Something Went Wrong!
+    </div>
     <div style="max-width: 750px;margin: 50px auto;" class="bg-light p-5">
       <h2 class="text-center m-4">Edit Product</h2>
       <form action="/updateProduct" method="post" id="editProductForm">
