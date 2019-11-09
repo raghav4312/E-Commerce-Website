@@ -1,0 +1,31 @@
+<%include header.ejs%>
+<div class="container">
+    <div id="divAddNewProduct">
+      <a id="pAddNewProduct" href="/addProduct" class="btn btn-dark form-control mb-5 mt-4">
+        Add a New Product
+      </a>
+    </div>
+    <div id="divListOfProducts">
+      <h3 id="pProductListHeading" class="mb-4 text-center">List of products:</h3>
+
+
+      <div class="card-deck" style="flex-wrap: wrap;justify-content: space-evenly">
+          <% data.forEach(info=>{ %>
+
+          <div class="card" style="flex: 0 0 20%;margin-bottom: 15px;
+          border: 2px solid rgba(0,0,0,.125);" id="<%=info._id%>">
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+            <div class="card-body">
+              <h5 class="card-title text-center"><%=info.name%></h5>
+              <p class="card-text"><%=info.desc%></p>
+              <p class="card-text">Available in stock: <%=info.quantity%></p>
+              <h6 class="card-title">₹<%=info.price%></h6>
+              <a href="/editProduct/<%=info._id%>"><button class="btn btn-info btnEdit">Edit</button></a>
+              <button class="btn btn-secondary btnDel">Delete</button>
+            </div>
+          </div>
+          <%});%>
+        </div>
+    </div>
+  </div>
+  <%include footer.ejs%>

@@ -11,6 +11,27 @@ router.get('/login',(req,res)=>{
 })
 
 router.post('/login',(req,res)=>{
+  user.findOne({email:req.body.email,password:req.body.password},(err,docs)=>{
+    if(err)console.log(err);
+    else
+    {
+      if(docs!=null){
+        if(docs.isAdmin==true)
+        req.session.adminLogin=true;
+        req.session.isLoggedIn=true;
+        req.session.loggedInUser=docs;
+        res.json({error:null,adminLogin:true});
+      }
+      else
+      {
+        req.session.adminLogin=false;
+        req.session.isLoggedIn=false;
+        req.session.loggedInUser=null;
+        res.json({error:"Email or Password is incorrect"});
+      }
+    }
+
+  })
 
 })
 
@@ -31,17 +52,18 @@ router.post('/register',(req,res)=>{
         User.password=req.body.password;
         User.mobileno=req.body.mobileno;
         User.address=req.body.address;
+        User.cart = [];
 
         User.save();
 
         req.session.isLoggedIn = true;
         req.session.loggedInUser = User;
-        res.redirect('/');
+        res.send({error:null});
       }
       else{
         console.log("Email already exists");
         req.session.registerError = "User with this Email address already exists";
-        res.send(req.session.registerError);
+        res.send({error:req.session.registerError});
       }
     }
 })

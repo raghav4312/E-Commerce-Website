@@ -1,22 +1,18 @@
 <% include header.ejs%>
 
 <div class="container">
-  <% if(error!=null){ %>
-      <div class="alert alert-danger" style="max-width: 750px;margin: 0 auto;text-align: center;" role="alert">
-          <%=error%>
-      </div>
-  <%}%>
+  <div class="d-none alert alert-danger" style="max-width: 750px;margin: 0 auto;text-align: center;" role="alert" id="errorDiv"></div>
   <div style="max-width: 750px;margin: 50px auto;" class="bg-info p-5">
     <h2 class="text-center">Sign Up</h2>
-    <form action="/user/register" method="post">
+    <form action="/user/register" method="post" id="registerForm">
       <div class="form-group" >
         <input type="text" name="name" required class="form-control" placeholder="Name"><br>
-        <input type="email" name="email" id="" class="form-control" required placeholder="Email "><br>
+        <input type="email" name="email" class="form-control" required placeholder="Email "><br>
         <input type="password" name="password" class="form-control" required placeholder="Password"><br>
-        <input type="password" name="cpassword" id="" class="form-control" placeholder="Confirm Password" required><br>
+        <input type="password" name="cpassword" class="form-control" placeholder="Confirm Password" required><br>
         <input type="number" size="10" name="mobile" placeholder="Mobile No." class="form-control" required><br>
-        <input type="text" name="address" id="" class="form-control" placeholder="Address" required><br>
-        <button type="submit" class="btn btn-dark form-control">Sign Up</button><br>
+        <input type="text" name="address" class="form-control" placeholder="Address" required><br>
+        <button type="button" id="btnRegister" class="btn btn-dark form-control">Sign Up</button><br>
         <a href="/user/login" style="color: white;" class="text-center">Already Registered?</a>
       </div>
     </form>

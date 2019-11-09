@@ -1,13 +1,14 @@
 <% include header.ejs%>
 
     <div class="container">
+      <div class="d-none alert alert-danger" style="max-width: 750px;margin: 0 auto;text-align: center;" role="alert" id="errorDiv"></div>
       <div style="max-width: 750px;margin: 50px auto;" class="bg-info p-5">
         <h2 class="text-center">Login</h2>
-        <form action="/user/login" method="post">
+        <form action="/user/login" method="post" id="loginForm">
           <div class="form-group">
             <input type="email" class="form-control" name="email" placeholder="Email"><br>
             <input type="password" name="password" class="form-control" id="" placeholder="Password"><br>
-            <input type="submit" value="Login" class="form-control btn btn-dark">
+            <input type="button" value="Login" id="btnLogin" class="form-control btn btn-dark">
             <a href="/user/register" style="color: white;text-align: center;" class="text-center">Create an Account</a>
           </div>
         </form>
