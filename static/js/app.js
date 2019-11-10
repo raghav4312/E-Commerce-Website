@@ -4,7 +4,7 @@ let btnRegister = document.getElementById('btnRegister');
 let btnCancel = document.getElementById('btnCancel');
 let btnAdd = document.getElementById('btnAdd');
 let btnEdit = document.getElementById('btnEdit');
-
+let prodDiv = document.getElementById('prodDiv');
 
 if(btnAdd!=null)
 btnAdd.addEventListener('click',addProduct);
@@ -16,6 +16,8 @@ if(btnLogin!=null)
 btnLogin.addEventListener('click',login);
 if(btnRegister!=null)
 btnRegister.addEventListener('click',register);
+if(prodDiv!=null)
+prodDiv.addEventListener('click',prodFunc);
 
 //getting forms
 let loginForm = document.getElementById('loginForm');
@@ -154,4 +156,36 @@ function editProduct(e)
       }
     }
   })
+}
+
+function prodFunc(e)
+{
+  if(e.target.classList.contains('delBtn'))
+  {
+    let id = e.target.parentElement.parentElement.id;
+    $.ajax({
+      type:'POST',
+      url:'/prod/deleteProduct',
+      data:{
+        id:id
+      },
+      success:(data,status)=>{
+        if(data.error==null)
+        {
+          document.getElementById(id).remove();
+          $('#successDel').removeClass('d-none').addClass('d-block');
+          setTimeout(()=>{
+            $('#successDel').addClass('d-none').removeClass('d-block');
+          },1500);
+        }
+        else
+        {
+          $('#errorDel').removeClass('d-none').addClass('d-block');
+          setTimeout(()=>{
+            $('#errorDel').addClass('d-none').removeClass('d-block');
+          },2000);
+        }
+      }
+    })
+  }
 }

@@ -2,9 +2,10 @@
 
 <div class="container">
   <div id="divListOfProducts">
-      <div class="d-flex flex-wrap justify-content-start">
+      <div class="d-flex flex-wrap justify-content-center" id="prodDiv">
         <% for(let i=0; i < data.length; i++) { %>
-          <div class="card" id='<%= data[i]._id %>' style="width:250px;margin:0 5px;">
+          <%if(data[i].isActive==true){%>
+          <div class="card" id='<%= data[i]._id %>' style="width:250px;margin:10px;">
               <div class="card-body">
                   <h5 class="card-title Name"><%=data[i].name %></h5>
                   <p class="card-text Desc"><span class="font-weight-bold">Desc: </span><%=data[i].desc %></p>
@@ -24,6 +25,7 @@
                   </div>
               </div>
           </div>
+          <%}%>
           <% } %>
         </div>
     </div>
