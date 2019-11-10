@@ -110,7 +110,7 @@ function addProduct(e)
         setTimeout(()=>{
           $('#successAdd').addClass('d-none').removeClass('d-block');
           window.location.href="/";
-        },2000);
+        },750);
       }
       else
       {
@@ -130,7 +130,7 @@ function editProduct(e)
     type:'POST',
     url:'/prod/editProduct',
     data:{
-      id:editProductForm.id.value,
+      id:editProductForm.pid.value,
       name:editProductForm.name.value,
       desc:editProductForm.desc.value,
       quan:editProductForm.quan.value,

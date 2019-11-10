@@ -12,8 +12,12 @@ router.get('/editProduct/:id',(req,res)=>{
     if(err)console.log(err);
     else{
     // res.redirect('/products');
-    // console.log(docs);
+    console.log(docs);
+    if(req.session.isLoggedIn==true)
     res.render('editProduct',{data:docs,user:req.session.loggedInUser.name});
+    else
+    res.render('editProduct',{data:docs,user:null});
+
     }
   })
 })
@@ -55,7 +59,7 @@ router.post('/addProduct',(req,res)=>{
 
 })
 
-router.post('editProduct',(req,res)=>{
+router.post('/editProduct',(req,res)=>{
   product.findByIdAndUpdate(`${req.body.id}`,{
     name:req.body.name,
     desc:req.body.desc,

@@ -8,7 +8,7 @@
     </div>
     <div style="max-width: 750px;margin: 50px auto;" class="bg-light p-5">
       <h2 class="text-center m-4">Edit Product</h2>
-      <form action="/updateProduct" method="post" id="editProductForm">
+      <form action="/prod/editProduct" method="post" id="editProductForm">
         <input type="text" value="<%=data._id%>" class="form-control" name="pid" readonly>
         <input type="text" name="name" placeholder="Enter the name od the Product" class="form-control" required value="<%=data.name%>"><br>
         <input type="text" class="form-control" name="desc" id="" placeholder="Enter the description" required value="<%=data.desc%>"><br>

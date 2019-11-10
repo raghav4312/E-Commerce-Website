@@ -42,7 +42,18 @@ app.use('/prod',prodRoute);
 // app.use('/cart',cartRoute);
 
 app.get('/',(req,res)=>{
-  res.send("Hello World!!!");
+  product.find({},(err,data)=>{
+    if(!req.session.isLoggedIn)
+      res.render('home',{data:data,user:null});
+    else
+    {
+      if(res.session.loggedInUser.isAdmin==true)
+      res.render('products',{data:data,user:req.session.loggedInUser.name});
+      else
+      res.render('home',{data:data,user:req.session.loggedInUser.name});
+    }
+
+  })
 })
 
 const port = process.env.PORT || 5000;

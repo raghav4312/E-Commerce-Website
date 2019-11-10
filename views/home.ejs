@@ -2,22 +2,29 @@
 
 <div class="container">
   <div id="divListOfProducts">
-      <div class="card-deck" style="flex-wrap: wrap;justify-content: space-evenly">
-          <% dataObj.data.forEach(info=>{ %>
-          <div class="card" style="flex: 0 0 20%;margin-bottom: 15px;
-          border: 2px solid rgba(0,0,0,.125); min-width:250px; ;" id="<%=info._id%>">
-            <!-- <img src="..." class="card-img-top" alt="..."> -->
-            <div class="card-body">
-              <h5 class="card-title text-center"><%=info.name%></h5>
-              <p class="card-text text-center"><%=info.desc%></p>
-              <h6 class="">₹<%=info.price%></h6>
-              <div class="card-title d-flex justify-content-around align-items-center">
-                <input type="number" min="0" name="qty" placeholder="Quantity">
-                <button class="btn btn-light btn-outline-info btnAddToCart">Add To Cart</button>
+      <div class="d-flex flex-wrap justify-content-start">
+        <% for(let i=0; i < data.length; i++) { %>
+          <div class="card" id='<%= data[i]._id %>' style="width:250px;margin:0 5px;">
+              <div class="card-body">
+                  <h5 class="card-title Name"><%=data[i].name %></h5>
+                  <p class="card-text Desc"><span class="font-weight-bold">Desc: </span><%=data[i].desc %></p>
+                  <% if(data[i].quantity<=10){%>
+                    <p class="card-text text-danger Quan">Only <%=data[i].quantity %> left in stock</p>
+                  <%}%>
+                    <span class="font-weight-bold">
+                      Price: <p class="card-text Price" style="display: inline-block"><%=data[i].price %></p>
+                  </span>
               </div>
-            </div>
+              <div class="d-flex flex-row justify-content-around">
+                  <div class="input-group mb-3 mx-3">
+                      <input type="text" class="form-control cartCheck" placeholder="Quantity" max=<%= data[i].qty %>>
+                      <div class="input-group-append">
+                          <button class="btn btn-outline-secondary bg-success text-white addToCart" type="button">Add</button>
+                      </div>
+                  </div>
+              </div>
           </div>
-          <%});%>
+          <% } %>
         </div>
     </div>
 </div>
