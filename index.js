@@ -44,7 +44,7 @@ app.use('/cart',cartRoute);
 app.get('/',(req,res)=>{
   product.find({},(err,data)=>{
     if(!req.session.isLoggedIn)
-      res.render('home',{data:data,user:null});
+      res.render('home',{data:[],user:null});
     else
     {
       if(res.session.loggedInUser.isAdmin==true)

@@ -31,10 +31,12 @@
         <button type="button" id="checkOutBtn" class="btn text-white bg-info mb-3 mt-3 w-50">Check Out</button>
       </div>
     <%}else{%>
-      <img src="/emptyCart.png" alt="">
+      <div class="emptyCartDiv d-flex justify-content-center mb-3 mt-3">
+        <img src="/emptyCart.png" alt="">
+      </div>
     <%}%>
     <div class="continueShoppingDiv d-flex justify-content-center">
-      <button type="button" id="continueShoppingBtn" class="btn text-white w-50 bg-dark mb-3">Continue Shopping</button>
+      <a href="/" class="w-50"><button type="button" id="continueShoppingBtn" class="btn text-white bg-dark mb-3 w-100">Continue Shopping</button></a>
     </div>
 </div>
 <%include footer.ejs%>
