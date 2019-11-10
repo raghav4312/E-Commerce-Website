@@ -35,11 +35,11 @@ app.use(bodyParser.json());
 /************************** REQUIRING THE ROUTES *********************************/
 const userRoute = require('./routes/userRoutes');
 const prodRoute = require('./routes/prodRoutes');
-// const cartRoute = require('./routes/cartRoutes');
+const cartRoute = require('./routes/cartRoutes');
 
 app.use('/user',userRoute);
 app.use('/prod',prodRoute);
-// app.use('/cart',cartRoute);
+app.use('/cart',cartRoute);
 
 app.get('/',(req,res)=>{
   product.find({},(err,data)=>{

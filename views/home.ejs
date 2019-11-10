@@ -1,6 +1,11 @@
 <%include header.ejs%>
 
 <div class="container">
+  <%if(user==null){%>
+  <div class="cartIcon media">
+      <a href="/cart"><img src="/cart.png" class="rouded-circle"></a>
+  </div>
+  <%}%>
   <div id="divListOfProducts">
       <div class="d-flex flex-wrap justify-content-center" id="prodDiv">
         <% for(let i=0; i < data.length; i++) { %>
