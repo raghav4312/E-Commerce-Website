@@ -20,5 +20,4 @@ let middleware = {
     return next();
   }
 }
-
 module.exports = middleware;

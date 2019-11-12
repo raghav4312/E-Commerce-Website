@@ -121,7 +121,7 @@ router.post('/checkOut',async (req,res)=>{
       }
       else
       {
-        if(data.quantity>=cartArray[i].quantity)
+        if(data.isActive==true&&data.quantity>=cartArray[i].quantity)
         {
           prodQtyArray[i]=data.quantity;
           count = count+1;
