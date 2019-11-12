@@ -1,12 +1,13 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
+const middleware = require('../middleware/auth');
 
 const product = require('../models/product');
 const cart = require('../models/cart');
 const user = require('../models/user');
 
-router.get('/login',(req,res)=>{
+router.get('/login',middleware.preventMultipleLogin,(req,res)=>{
   res.render('login',{error:req.session.loginError,user:null});
 })
 
@@ -20,6 +21,7 @@ router.post('/login',(req,res)=>{
         req.session.adminLogin=true;
         req.session.isLoggedIn=true;
         req.session.loggedInUser=docs;
+        console.log(req.session.loggedInUser);
         res.json({error:null,adminLogin:true});
       }
       else
@@ -35,7 +37,7 @@ router.post('/login',(req,res)=>{
 
 })
 
-router.get('/register',(req,res)=>{
+router.get('/register',middleware.preventMultipleLogin,(req,res)=>{
   res.render('register',{error:"Email Invalid",user:null});
 })
 
@@ -67,6 +69,13 @@ router.post('/register',(req,res)=>{
       }
     }
 })
+})
+
+router.post('/logout',(req,res)=>{
+  req.session.adminLogin=false;
+  req.session.isLoggedIn=false;
+  req.session.loggedInUser=null;
+  res.send({error:null});
 })
 
 module.exports = router;

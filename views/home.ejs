@@ -1,7 +1,7 @@
 <%include header.ejs%>
 
 <div class="container">
-  <%if(user==null){%>
+  <%if(user!=null){%>
   <div class="cartIcon media">
       <a href="/cart"><img src="/cart.png" class="rouded-circle"></a>
   </div>
@@ -16,14 +16,20 @@
                   <p class="card-text Desc"><span class="font-weight-bold">Desc: </span><%=data[i].desc %></p>
                   <% if(data[i].quantity<=10){%>
                     <p class="card-text text-danger Quan">Only <%=data[i].quantity %> left in stock</p>
-                  <%}%>
+                  <%}else{%>
+                    <p class="card-text Quan" style="display: inline-block"></p>
                     <span class="font-weight-bold">
-                      Price: <p class="card-text Price" style="display: inline-block"><%=data[i].price %></p>
-                  </span>
+                      Available in stock:</span> <%=data[i].quantity %></p>
+                  
+                  <%}%>
+                  <p class="card-text Price" style="display: inline-block"></p>
+                    <span class="font-weight-bold">
+                      Price:</span> <%=data[i].price %></p>
+                  
               </div>
               <div class="d-flex flex-row justify-content-around">
                   <div class="input-group mb-3 mx-3">
-                      <input type="text" class="form-control cartCheck" placeholder="Quantity" max=<%= data[i].qty %>>
+                      <input type="number" class="form-control cartCheck" placeholder="Quantity" min="0" max=<%= data[i].quantity %>>
                       <div class="input-group-append">
                           <button class="btn btn-outline-secondary bg-success text-white addToCart" type="button">Add</button>
                       </div>

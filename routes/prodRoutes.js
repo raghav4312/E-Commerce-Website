@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const middleware = require('../middleware/auth');
 
 const product = require('../models/product');
 
+router.use(middleware.authenticateAdmin);
+
 router.get('/addProduct',(req,res)=>{
-  res.render('addProduct',{user:"req.session.loggedInUser.name"})
+  res.render('addProduct',{user:req.session.loggedInUser.name})
 })
 
 router.get('/editProduct/:id',(req,res)=>{

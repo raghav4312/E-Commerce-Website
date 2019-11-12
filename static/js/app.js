@@ -4,6 +4,7 @@ let btnRegister = document.getElementById('btnRegister');
 let btnCancel = document.getElementById('btnCancel');
 let btnAdd = document.getElementById('btnAdd');
 let btnEdit = document.getElementById('btnEdit');
+let btnLogout = document.getElementById('btnLogout');
 let prodDiv = document.getElementById('prodDiv');
 
 if(btnAdd!=null)
@@ -16,8 +17,12 @@ if(btnLogin!=null)
 btnLogin.addEventListener('click',login);
 if(btnRegister!=null)
 btnRegister.addEventListener('click',register);
-if(prodDiv!=null)
+if(prodDiv!=null){
 prodDiv.addEventListener('click',prodFunc);
+prodDiv.addEventListener('keyup',checkQuantity);
+}
+if(btnLogout!=null)
+btnLogout.addEventListener('click',logout);
 
 //getting forms
 let loginForm = document.getElementById('loginForm');
@@ -38,9 +43,6 @@ function login(e){
     success :(data,status)=>{
       if(data.error==null)
       {
-        if(data.adminLogin==true)
-          window.location.href = '/product';
-        else
           window.location.href= '/';
       }
       else
@@ -91,6 +93,21 @@ function register(e){
       }
     })
   }
+}
+
+function logout(){
+  $.ajax({
+    type:'POST',
+    url:'/user/logout',
+    success:(data,status)=>{
+      if(data.error==null)
+      {
+        window.location.href='/';
+      }
+      else
+      console.log(data.error);
+    }
+  })
 }
 
 function addProduct(e)
@@ -158,6 +175,24 @@ function editProduct(e)
   })
 }
 
+function checkQuantity(e)
+{
+  if(e.target.classList.contains('cartCheck'))
+  {
+    let addbtn = e.target.nextElementSibling.firstElementChild;
+      if(e.target.value>parseInt(e.target.max)||e.target.value<0)
+      {
+        e.target.classList.add('border-danger');
+        addbtn.setAttribute('disabled',true);
+      }
+      else
+      {
+        e.target.classList.remove('border-danger');
+        addbtn.removeAttribute('disabled');
+      }
+  }
+}
+
 function prodFunc(e)
 {
   if(e.target.classList.contains('delBtn'))
@@ -187,5 +222,31 @@ function prodFunc(e)
         }
       }
     })
+  }
+  else if(e.target.classList.contains('addToCart'))
+  {
+    let id = e.target.parentElement.parentElement.parentElement.parentElement.id;
+    let qty = e.target.parentElement.previousElementSibling.value;
+    if(qty>parseInt(e.target.max)||qty<0)
+    {
+      alert("Please Enter a valid Quantity");
+    }
+    else
+    {
+      $.ajax({
+        type:'POST',
+        url:'/cart/addToCart',
+        data:{
+          pid:id,
+          qty:qty
+        },
+        success:(data,status)=>{
+          if(data.error==null)
+          {
+            alert('Successfull')
+          }
+        }
+      })
+    }
   }
 }

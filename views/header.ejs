@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <title>Document</title>
+  <title>ShopEase</title>
   <style>
     .cartIcon img{
       height:65px;
@@ -18,7 +18,7 @@
 </head>
 <body>
     <nav class="navbar navbar-light bg-dark mb-4">
-        <a class="navbar-brand"><h3 class="text-white">ShopEase</h3></a>
+        <a href="/" class="navbar-brand"><h3 class="text-white">ShopEase</h3></a>
         <% if(user==null){%>
         <form class="form-inline" method="GET" action="/user/login">
           <span class="navbar-text text-white mr-3">
@@ -32,7 +32,7 @@
           <span class="navbar-text text-white mr-3">
             Welcome <%=user%>
           </span>
-          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Log Out</button>
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit" id="btnLogout">Log Out</button>
         </form>
         <%}%>
     </nav>

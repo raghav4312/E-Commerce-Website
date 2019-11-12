@@ -43,6 +43,10 @@ let User = new Schema({
       type:String,
       required:true
     },
+    desc:{
+      type:String,
+      required:true
+    },
     quantity:{
       type:Number,
       required:true,
@@ -50,6 +54,10 @@ let User = new Schema({
     },
     price:{
       type:Number,
+      required:true
+    },
+    isActive:{
+      type:Boolean,
       required:true
     }
   }]

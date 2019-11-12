@@ -42,12 +42,13 @@ app.use('/prod',prodRoute);
 app.use('/cart',cartRoute);
 
 app.get('/',(req,res)=>{
+  
   product.find({},(err,data)=>{
     if(!req.session.isLoggedIn)
-      res.render('home',{data:[],user:null});
+      res.render('home',{data:data,user:null});
     else
     {
-      if(res.session.loggedInUser.isAdmin==true)
+      if(req.session.adminLogin==true)
       res.render('products',{data:data,user:req.session.loggedInUser.name});
       else
       res.render('home',{data:data,user:req.session.loggedInUser.name});
