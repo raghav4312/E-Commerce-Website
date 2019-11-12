@@ -5,7 +5,9 @@ let btnCancel = document.getElementById('btnCancel');
 let btnAdd = document.getElementById('btnAdd');
 let btnEdit = document.getElementById('btnEdit');
 let btnLogout = document.getElementById('btnLogout');
+let checkOutBtn = document.getElementById('checkOutBtn');
 let prodDiv = document.getElementById('prodDiv');
+
 
 if(btnAdd!=null)
 btnAdd.addEventListener('click',addProduct);
@@ -17,6 +19,10 @@ if(btnLogin!=null)
 btnLogin.addEventListener('click',login);
 if(btnRegister!=null)
 btnRegister.addEventListener('click',register);
+if(checkOutBtn!=null){
+checkOutBtn.addEventListener('click',checkOut);
+// document.querySelector('body').addEventListener('beforeunload',updateQty);
+}
 if(prodDiv!=null){
 prodDiv.addEventListener('click',prodFunc);
 prodDiv.addEventListener('keyup',checkQuantity);
@@ -243,10 +249,50 @@ function prodFunc(e)
         success:(data,status)=>{
           if(data.error==null)
           {
-            alert('Successfull')
+            alert('Successfull');
           }
         }
       })
     }
   }
+}
+
+function updateQty()
+{
+  let cartQty = document.querySelectorAll('.cartQty');
+  $.ajax({
+    type:'POST',
+    url:'/cart/updateQuantity',
+    data:{
+
+    }
+  })
+}
+
+function checkOut(e)
+{
+
+  $.ajax({
+    type:'POST',
+    url:'/cart/checkOut',
+    success:(data,status)=>{
+      if(data.error==null)
+      {
+        $('#errorCheckOut').html("Purchase Successfull");
+        $('#errorCheckOut').removeClass('d-none').removeClass('alert-danger').addClass('d-block').addClass('alert-success');
+        setTimeout(()=>{
+          $('#errorCheckOut').addClass('d-none').removeClass('alert-success').removeClass('d-block').addClass('alert-danger');
+          window.location.href='/';
+        },2000);
+      }
+      else
+      {
+        $('#errorCheckOut').html(data.error);
+        $('#errorCheckOut').removeClass('d-none').addClass('d-block');
+        setTimeout(()=>{
+          $('#errorCheckOut').addClass('d-none').removeClass('d-block');
+        },2000);
+      }
+    }
+  })
 }
