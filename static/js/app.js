@@ -6,6 +6,7 @@ let btnAdd = document.getElementById('btnAdd');
 let btnEdit = document.getElementById('btnEdit');
 let btnLogout = document.getElementById('btnLogout');
 let checkOutBtn = document.getElementById('checkOutBtn');
+let cartDiv = document.getElementById('cartDiv');
 let prodDiv = document.getElementById('prodDiv');
 
 
@@ -27,6 +28,8 @@ if(prodDiv!=null){
 prodDiv.addEventListener('click',prodFunc);
 prodDiv.addEventListener('keyup',checkQuantity);
 }
+if(cartDiv!=null)
+cartDiv.addEventListener('click',cartFunc);
 if(btnLogout!=null)
 btnLogout.addEventListener('click',logout);
 
@@ -233,7 +236,11 @@ function prodFunc(e)
   {
     let id = e.target.parentElement.parentElement.parentElement.parentElement.id;
     let qty = e.target.parentElement.previousElementSibling.value;
-    if(qty>parseInt(e.target.max)||qty<0)
+    if(qty=="")
+    {
+      alert("Please Enter a Quantity");
+    }
+    else if(qty>parseInt(e.target.max)||qty<0)
     {
       alert("Please Enter a valid Quantity");
     }
@@ -249,29 +256,43 @@ function prodFunc(e)
         success:(data,status)=>{
           if(data.error==null)
           {
-            alert('Successfull');
+            alert('Product Added To Cart');
           }
+          else if(data.error=="Login is required")
+          window.location.href='/user/login';
         }
       })
     }
   }
 }
 
-function updateQty()
+function cartFunc(e)
 {
-  let cartQty = document.querySelectorAll('.cartQty');
-  $.ajax({
-    type:'POST',
-    url:'/cart/updateQuantity',
-    data:{
+  if(e.target.classList.contains('removeBtn')){
+    let pid = e.target.parentElement.parentElement.parentElement.parentElement.id;
 
-    }
-  })
+    $.ajax({
+      type:'POST',
+      url:'/cart/removeProd',
+      data:{
+        pid:pid
+      },
+      success:(data,status)=>{
+        if(data.error==null)
+        {
+          document.getElementById(pid).remove();
+          let card = document.querySelectorAll('.card');
+          if(card.length==0)
+          window.location.reload();
+        }
+      }
+    })
+  }
+  
 }
 
 function checkOut(e)
 {
-
   $.ajax({
     type:'POST',
     url:'/cart/checkOut',
@@ -283,7 +304,7 @@ function checkOut(e)
         setTimeout(()=>{
           $('#errorCheckOut').addClass('d-none').removeClass('alert-success').removeClass('d-block').addClass('alert-danger');
           window.location.href='/';
-        },2000);
+        },1000);
       }
       else
       {
@@ -291,7 +312,7 @@ function checkOut(e)
         $('#errorCheckOut').removeClass('d-none').addClass('d-block');
         setTimeout(()=>{
           $('#errorCheckOut').addClass('d-none').removeClass('d-block');
-        },2000);
+        },1500);
       }
     }
   })

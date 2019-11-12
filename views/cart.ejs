@@ -8,7 +8,7 @@
   <div class="d-flex flex-wrap justify-content-center" id="cartDiv">
     <% for(let i=0; i<data.length; i++) { %>
       <%if(data[i].isActive==true){%>
-      <div class="card" id='<%= data[i]._id %>' style="width:250px;margin:10px;">
+      <div class="card" id='<%= data[i].pid %>' style="width:250px;margin:10px;">
         <div class="card-body">
           <h5 class="card-title Name"><%=data[i].name %></h5>
           <p class="card-text Desc"><span class="font-weight-bold">Desc: </span><%=data[i].desc %></p>
@@ -21,14 +21,10 @@
         </div>
         <%if(prodQty[i]!=0){%>
         <div class="d-flex flex-row justify-content-around">
-            <div class="input-group mb-3 mx-3">
-              <div class="input-group-prepend">
-                  <button class="btn btn-outline-danger border-danger minusBtn" type="button"><strong>-</strong></button>
-              </div>
-              
-              <input type="number" class="form-control text-center cartQty cartCheck w-25" min="0" max="<%=prodQty[i]%>" value=<%= data[i].quantity %>>
+            <div class="input-group mb-3 mx-3">              
+              <input type="number" class="form-control text-center cartQty cartCheck w-25" min="0" max="<%=prodQty[i]%>" readonly value=<%= data[i].quantity %>>
               <div class="input-group-append">
-                  <button class="btn btn-outline-success border-success plusBtn" type="button">+</button>
+                  <button class="btn btn-outline-danger border-danger removeBtn" type="button">Remove</button>
               </div>
             </div>
         </div>

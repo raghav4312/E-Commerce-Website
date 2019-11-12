@@ -81,8 +81,30 @@ router.post('/addToCart',(req,res)=>{
   })
 })
 
-router.post('/updateQuantity',(req,res)=>{
-  
+router.post('/removeProd',(req,res)=>{
+  let cartArray = req.session.loggedInUser.cart;
+  let ind=-1;
+  for(let i=0;i<cartArray.length;i++)
+  {
+    if(cartArray.pid==req.body.pid)
+    {
+      ind=i;
+      break;
+    }
+  }
+  cartArray.splice(ind,1);
+  req.session.loggedInUser.cart = cartArray;
+  user.findByIdAndUpdate(`${req.session.loggedInUser._id}`,req.session.loggedInUser,(error,docs)=>{
+    if(error)
+    {
+      console.log(error);
+      res.send({error:error});
+    }
+    else
+    {
+      res.send({error:null});
+    }
+  });
 })
 
 router.post('/checkOut',async (req,res)=>{
