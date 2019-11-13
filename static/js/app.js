@@ -13,7 +13,7 @@ let prodDiv = document.getElementById('prodDiv');
 if(btnAdd!=null)
 btnAdd.addEventListener('click',addProduct);
 if(btnCancel!=null)
-btnCancel.addEventListener('click',()=>{});
+btnCancel.addEventListener('click',()=>{window.location.href="/";});
 if(btnEdit!=null)
 btnEdit.addEventListener('click',editProduct);
 if(btnLogin!=null)
